@@ -30,6 +30,12 @@ export class AppComponent implements OnInit {
     },
   ];
 
+  countries = [
+    { id: 1, nested: { countryId: 'L', name: 'Lithuania' } },
+    { id: 2, nested: { countryId: 'U', name: 'USA' } },
+    { id: 3, nested: { countryId: 'A', name: 'Australia' } }
+  ];
+
   constructor(private fb: FormBuilder) {
 
   }
@@ -40,24 +46,41 @@ export class AppComponent implements OnInit {
 
   createForm() {
     this.form = this.fb.group({
-      age: []
+      age: this.fb.group({
+        CODE: [],
+        DESCRIPTION: []
+      }),
+      selectedCountryId: []
     });
   }
 
   patchForm() {
     this.form.patchValue({
-      age: this.sampleOption
+      age: {
+        CODE: 'SGP',
+        DESCRIPTION: 'Singaporean'
+      },
+      selectedCountryId: { countryId: 'A', name: 'Australia' }
     });
   }
 
   showConfirm() {
     console.log('showConfirm');
+    this.form.patchValue({
+      age: {
+        DESCRIPTION: 'Singapore'
+      }
+    })
   }
 
   compareFn(option1: Option, option2: Option): boolean {
     console.log('option1', option1);
     console.log('option2', option2);
     return option1 && option2 ? option1.CODE === option2.CODE : option1 === option2;
+  }
+
+  getNgSelectLabel(): string {
+    return 'hello world';
   }
 
 }

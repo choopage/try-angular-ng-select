@@ -3,15 +3,30 @@
 
 <form [formGroup]="form">
   <div class="form-group">
-    <ng-select #agesSelect [items]="ages"
-               [selectOnTab]="true"
-               bindValue="value"
-               (ngModelChange)="showConfirm()"
-               placeholder="Select age"
-               [compareWith]="compareFn"
-               formControlName="age">
-    </ng-select>
+    <div formGroupName="age">
+      <ng-select #agesSelect
+                 [items]="ages"
+                 [selectOnTab]="true"
+                 bindValue="value.CODE"
+                 (ngModelChange)="showConfirm()"
+                 placeholder="Select age"
+                 [compareWith]="compareFn"
+                 formControlName="CODE">
+      </ng-select>
+    </div>
   </div>
+
+
+  <br>
+  <hr>
+  <br>
+
+  <ng-select [items]="countries"
+             bindLabel="nested.name"
+             bindValue="nested"
+             placeholder="Select value"
+             formControlName="selectedCountryId">
+  </ng-select>
 </form>
 
 <button (click)="patchForm()">Patch Form To Test It Works</button>
